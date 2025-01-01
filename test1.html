@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donation Progress Tracker</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .progress-container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .progress-bar {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            transition: width 0.3s ease;
+        }
+    </style>
+</head>
+<body class="container">
+    <h1 class="text-center">Donation Progress Tracker</h1>
+    <div class="text-center">
+        <p><strong>Target:</strong> $<span id="target-amount">5000</span></p>
+        <p><strong>Raised:</strong> $<span id="raised-amount">0</span></p>
+    </div>
+    <div class="progress-container">
+        <div class="progress">
+            <div id="progress-bar" class="progress-bar bg-success" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%</div>
+        </div>
+    </div>
+    <script>
+        let targetAmount = 5000;
+        let raisedAmount = 0;
+        const progressBar = document.getElementById('progress-bar');
+        const raisedElement = document.getElementById('raised-amount');
+
+        function updateProgress(newRaisedAmount) {
+            raisedAmount = newRaisedAmount;
+            raisedElement.textContent = raisedAmount.toFixed(2);
+            const progressPercentage = Math.min((raisedAmount / targetAmount) * 100, 100);
+            progressBar.style.width = progressPercentage + '%';
+            progressBar.textContent = Math.floor(progressPercentage) + '%';
+            progressBar.setAttribute('aria-valuenow', progressPercentage);
+        }
+
+        // Example dynamic updates
+        setTimeout(() => updateProgress(1500), 1000);
+        setTimeout(() => updateProgress(3000), 3000);
+        setTimeout(() => updateProgress(5000), 5000);
+    </script>
+</body>
+</html>
